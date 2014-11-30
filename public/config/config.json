@@ -1,0 +1,22 @@
+{
+	"devices":[
+	{
+		"dev":"rel1",
+		"name":"speakers",
+		"state":false
+	},{
+		"dev":"rel2",
+		"name":"lamp",
+		"state":false
+	},{
+		"dev":"sw1",
+		"name":"switch1",
+		"state":false
+	},{
+		"dev":"sw2",
+		"name":"switch2",
+		"state":false
+	}
+
+	]
+}

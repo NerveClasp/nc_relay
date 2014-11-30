@@ -1,0 +1,21 @@
+{
+  "name": "Relay",
+  "version": "0.0.0",
+  "description": "A simple node js+ socket.io+express interface to toggle Arduino relay shield",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "NerveClasp",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.7.0",
+    "duino": "0.0.9",
+    "express": "^4.8.7",
+    "favicon": "0.0.2",
+    "http": "0.0.0",
+    "jquery": "^2.1.1",
+    "path": "^0.4.9",
+    "socket.io": "^1.0.6"
+  }
+}

@@ -1,0 +1,13 @@
+paper-toggle-button::shadow paper-radio-button::shadow #ink[checked] {
+    color: #F0D25D;
+}
+paper-toggle-button::shadow paper-radio-button::shadow #onRadio {
+    background-color: #F0D25D;
+}
+paper-toggle-button::shadow #toggleBar[checked] {
+    background-color: #F0D25D;
+}
+
+/*background dark #414345*/
+/*orange bright #F0D25D*/
+/*switch color #EEEEEE*/

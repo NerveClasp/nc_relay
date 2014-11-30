@@ -1,0 +1,135 @@
+<!doctype html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  <!-- <script src="./platform/platform.js"></script> -->
+  <!-- <link href="/paper-toggle-button/paper-toggle-button.html" rel="import"> -->
+  <!-- <link rel="import" href="nc-switch.html"> -->
+  <link rel="stylesheet" type="text/css" href="/style/main.css">
+  <!-- <link rel="stylesheet" type="text/css" href="/style/polymer.css"> -->
+    <title>Arduino Relay Toggle</title>
+    <style>
+    
+    </style>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+    // var json = $.getJSON("config/config.json", function(data, status){
+
+    // })
+      
+      var socket = io();
+      var color;
+      var index = function(id){
+            switch(id){
+              case "rel1": return 0;
+              break;
+              case "rel2": return 1;
+              break;
+              case "sw1": return 2;
+              break;
+              case "sw2": return 3;
+              break;
+            }
+          };
+      function toggleThis(tg){
+        console.log(tg);
+        console.log(index(tg.id));
+        socket.emit('relay', {
+          dev: tg.id,
+          state: tg.checked,
+          index: index(tg.id)
+          }
+        );
+        if (tg.checked) {
+          document.getElementById(tg.id+"Lab").style.color = "#F0D25D";
+          // $('#'+tg.id+"oLab")
+          // .css("-webkit-box-shadow"," 0px 3px 27px 0px rgba(240, 210, 93, 0.5")
+          // .css("-moz-box-shadow", "0px 3px 27px 0px rgba(240, 210, 93, 0.5)")
+          // .css("box-shadow", "0px 3px 27px 0px rgba(240, 210, 93, 0.5)");
+          $('#'+tg.id+"Lab")
+          .css("-webkit-text-shadow"," 0px 3px 20px  rgba(240, 210, 93, 0.5")
+          .css("-moz-text-shadow", "0px 3px 20px  rgba(240, 210, 93, 0.5)")
+          .css("text-shadow", "0px 3px 20px  rgba(240, 210, 93, 0.5)");
+        } else{
+          document.getElementById(tg.id+"Lab").style.color = "#a1a1a1";
+          // $('#'+tg.id+"oLab")
+          // .css("-webkit-box-shadow"," 0px 3px 27px 0px rgba(238, 238, 238, 0.5")
+          // .css("-moz-box-shadow", "0px 3px 27px 0px rgba(238, 238, 238, 0.5)")
+          // .css("box-shadow", "0px 3px 27px 0px rgba(238, 238, 238, 0.5)");
+
+          $('#'+tg.id+"Lab")
+          .css("-webkit-text-shadow"," 0px 1px 5px  rgba(238, 238, 238, 0.5")
+          .css("-moz-text-shadow", "0px 1px 5px  rgba(238, 238, 238, 0.5)")
+          .css("text-shadow", "0px 1px 5px  rgba(238, 238, 238, 0.5)");
+
+        };
+      };
+      socket.on('status', function(msg){
+        console.log(msg.dev);
+        var color;
+        if(msg.state){
+          color = "#F0D25D";
+        }else{
+          color = "#a1a1a1";
+        }
+        if(document.getElementById(msg.dev)!= null){
+          document.getElementById(msg.dev).checked = msg.state;
+          document.getElementById(msg.dev+"Lab").style.color = color;
+        }
+        
+      });
+    </script>
+
+  </head>
+  <body>
+  <div class="boxing">
+  
+    
+    <div class="footer" id="paperEl">
+    <table>
+    <tr>
+    <td>
+      <div class="lab">
+      <p id="sw1Lab">SPEAKERS</p>
+      </div></td><td>
+      <div class="switch">
+      <div class="onoffswitch">
+      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sw1" onclick="toggleThis(this)">
+      <label class="onoffswitch-label" for="sw1" id="sw1oLab">
+          <span class="onoffswitch-inner"></span>
+          <span class="onoffswitch-switch"></span>
+      </label>
+      </div>
+        <!-- <paper-toggle-button id="speakers" onclick="toggleThis(this)"></paper-toggle-button> -->
+      </div>
+      </td>
+    </tr>
+    <tr>
+    <td>
+      <div class="lab">
+        <p id="sw2Lab">LAMP</p>
+      </div>
+      </td><td>
+      <div class="switch">
+      <div class="onoffswitch">
+      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sw2" onclick="toggleThis(this)">
+      <label class="onoffswitch-label" for="sw2" id="sw2oLab">
+          <span class="onoffswitch-inner"></span>
+          <span class="onoffswitch-switch"></span>
+      </label>
+      </div>
+        <!-- <paper-toggle-button id="lamp" onclick="toggleThis(this)"></paper-toggle-button> -->
+      </div>
+      </td></tr>
+     
+    </table>
+    </div>
+    <div class="footer" style="color:#a1a1a1">Made by Roman Gorokhov</div>
+</div>   
+  </body>
+</html>
